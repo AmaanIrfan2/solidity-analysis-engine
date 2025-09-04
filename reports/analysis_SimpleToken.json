@@ -1,0 +1,566 @@
+{
+  "analysis_id": "7a059a0f-6846-43ca-9169-39129bfed036",
+  "contract_id": null,
+  "timestamp": "2025-09-03T06:23:43.138471",
+  "compilation": {
+    "success": true,
+    "framework": "hardhat",
+    "artifacts": [
+      {
+        "contract_name": "SimpleToken",
+        "source_name": "contracts/SimpleToken.sol",
+        "abi": [
+          {
+            "inputs": [
+              {
+                "internalType": "uint256",
+                "name": "_totalSupply",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+              }
+            ],
+            "name": "balances",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "address[]",
+                "name": "recipients",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "amounts",
+                "type": "uint256[]"
+              }
+            ],
+            "name": "batchTransfer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+              }
+            ],
+            "name": "getBalance",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "totalSupply",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+              }
+            ],
+            "name": "transfer",
+            "outputs": [
+              {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+              }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          }
+        ],
+        "bytecode": "0x608060405234801561001057600080fd5b50604051610935380380610935833981810160405281019061003291906100bd565b80600181905550806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550506100ea565b600080fd5b6000819050919050565b61009a81610087565b81146100a557600080fd5b50565b6000815190506100b781610091565b92915050565b6000602082840312156100d3576100d2610082565b5b60006100e1848285016100a8565b91505092915050565b61083c806100f96000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c806318160ddd1461005c57806327e235e31461007a57806388d695b2146100aa578063a9059cbb146100c6578063f8b2cb4f146100f6575b600080fd5b610064610126565b6040516100719190610308565b60405180910390f35b610094600480360381019061008f9190610395565b61012c565b6040516100a19190610308565b60405180910390f35b6100c460048036038101906100bf919061060a565b610144565b005b6100e060048036038101906100db9190610682565b6101f1565b6040516100ed91906106dd565b60405180910390f35b610110600480360381019061010b9190610395565b6102a7565b60405161011d9190610308565b60405180910390f35b60015481565b60006020528060005260406000206000915090505481565b60005b82518110156101ec57818181518110610163576101626106f8565b5b6020026020010151600080858481518110610181576101806106f8565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282546101d29190610756565b9250508190555080806101e49061078a565b915050610147565b505050565b6000816000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461024191906107d2565b92505081905550816000808573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282546102969190610756565b925050819055506001905092915050565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b6000819050919050565b610302816102ef565b82525050565b600060208201905061031d60008301846102f9565b92915050565b6000604051905090565b600080fd5b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061036282610337565b9050919050565b61037281610357565b811461037d57600080fd5b50565b60008135905061038f81610369565b92915050565b6000602082840312156103ab576103aa61032d565b5b60006103b984828501610380565b91505092915050565b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b610410826103c7565b810181811067ffffffffffffffff8211171561042f5761042e6103d8565b5b80604052505050565b6000610442610323565b905061044e8282610407565b919050565b600067ffffffffffffffff82111561046e5761046d6103d8565b5b602082029050602081019050919050565b600080fd5b600061049761049284610453565b610438565b905080838252602082019050602084028301858111156104ba576104b961047f565b5b835b818110156104e357806104cf8882610380565b8452602084019350506020810190506104bc565b5050509392505050565b600082601f830112610502576105016103c2565b5b8135610512848260208601610484565b91505092915050565b600067ffffffffffffffff821115610536576105356103d8565b5b602082029050602081019050919050565b610550816102ef565b811461055b57600080fd5b50565b60008135905061056d81610547565b92915050565b60006105866105818461051b565b610438565b905080838252602082019050602084028301858111156105a9576105a861047f565b5b835b818110156105d257806105be888261055e565b8452602084019350506020810190506105ab565b5050509392505050565b600082601f8301126105f1576105f06103c2565b5b8135610601848260208601610573565b91505092915050565b600080604083850312156106215761062061032d565b5b600083013567ffffffffffffffff81111561063f5761063e610332565b5b61064b858286016104ed565b925050602083013567ffffffffffffffff81111561066c5761066b610332565b5b610678858286016105dc565b9150509250929050565b600080604083850312156106995761069861032d565b5b60006106a785828601610380565b92505060206106b88582860161055e565b9150509250929050565b60008115159050919050565b6106d7816106c2565b82525050565b60006020820190506106f260008301846106ce565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6000610761826102ef565b915061076c836102ef565b925082820190508082111561078457610783610727565b5b92915050565b6000610795826102ef565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82036107c7576107c6610727565b5b600182019050919050565b60006107dd826102ef565b91506107e8836102ef565b9250828203905081811115610800576107ff610727565b5b9291505056fea2646970667358221220d527f668803ab4d666fcec6e8eda0bec118f9677c51cdfcec1a70c9955c0ac9664736f6c63430008150033"
+      }
+    ],
+    "error": null
+  },
+  "findings": [
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @title tag in contract 'SimpleToken'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 4,
+        "column": 1
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @author tag in contract 'SimpleToken'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 4,
+        "column": 1
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in contract 'SimpleToken'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 4,
+        "column": 1
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in variable 'balances'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 5,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in variable 'totalSupply'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 6,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in function '<anonymous>'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 8,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @param tag in function '<anonymous>'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 8,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Mismatch in @param names for function '<anonymous>'. Expected: [_totalSupply], Found: []",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 8,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "func-visibility",
+      "description": "Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 8,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in function 'transfer'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 13,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @param tag in function 'transfer'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 13,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Mismatch in @param names for function 'transfer'. Expected: [to, amount], Found: []",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 13,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @return tag in function 'transfer'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 13,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Mismatch in @return count for function 'transfer'. Expected: 1, Found: 0",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 13,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in function 'batchTransfer'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 19,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @param tag in function 'batchTransfer'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 19,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Mismatch in @param names for function 'batchTransfer'. Expected: [recipients, amounts], Found: []",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 19,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "explicit-types",
+      "description": "Rule is set with explicit type [var/s: uint]",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 20,
+        "column": 14
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "gas",
+      "severity": "Low",
+      "title": "gas-increment-by-one",
+      "description": "GC: For [ i ] variable, increment/decrement by 1 using: [ ++variable ] to save gas",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 20,
+        "column": 49
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @notice tag in function 'getBalance'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 25,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @param tag in function 'getBalance'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 25,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Mismatch in @param names for function 'getBalance'. Expected: [user], Found: []",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 25,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Missing @return tag in function 'getBalance'",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 25,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "solhint",
+      "contract": "SimpleToken",
+      "category": "maintainability",
+      "severity": "Low",
+      "title": "use-natspec",
+      "description": "Mismatch in @return count for function 'getBalance'. Expected: 1, Found: 0",
+      "location": {
+        "file": "contracts/SimpleToken.sol",
+        "line": 25,
+        "column": 5
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "slither",
+      "contract": "^0.8.0",
+      "category": "security",
+      "severity": "Info",
+      "title": "solc-version",
+      "description": "Version constraint ^0.8.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation\n\t- SignedImmutables\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching.\nIt is used by:\n\t- ^0.8.0 (flattened/SimpleToken.sol#8)\n",
+      "location": {
+        "start": 181,
+        "length": 23,
+        "filename_relative": "flattened/SimpleToken.sol",
+        "filename_absolute": "/tmp/analysis-7a059a0f-6846-43ca-9169-39129bfed036-kv8b0omc/flattened/SimpleToken.sol",
+        "filename_short": "flattened/SimpleToken.sol",
+        "is_dependency": false,
+        "lines": [
+          8
+        ],
+        "starting_column": 1,
+        "ending_column": 24
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "slither",
+      "contract": "totalSupply",
+      "category": "security",
+      "severity": "Low",
+      "title": "immutable-states",
+      "description": "SimpleToken.totalSupply (flattened/SimpleToken.sol#12) should be immutable \n",
+      "location": {
+        "start": 282,
+        "length": 26,
+        "filename_relative": "flattened/SimpleToken.sol",
+        "filename_absolute": "/tmp/analysis-7a059a0f-6846-43ca-9169-39129bfed036-kv8b0omc/flattened/SimpleToken.sol",
+        "filename_short": "flattened/SimpleToken.sol",
+        "is_dependency": false,
+        "lines": [
+          12
+        ],
+        "starting_column": 5,
+        "ending_column": 31
+      },
+      "recommendation": null
+    },
+    {
+      "tool": "gas-analyzer",
+      "contract": "SimpleToken",
+      "category": "security",
+      "severity": "High",
+      "title": "Potential Underflow",
+      "description": "Subtraction without overflow check detected.",
+      "location": {
+        "line": 14,
+        "code": "balances[msg.sender] -= amount;  // Potential underflow - no check!"
+      },
+      "recommendation": "Add SafeMath library or require() checks before subtraction."
+    },
+    {
+      "tool": "gas-analyzer",
+      "contract": "SimpleToken",
+      "category": "gas",
+      "severity": "Medium",
+      "title": "Storage Operation in Loop",
+      "description": "Storage operations in loops consume high gas. Consider using memory or optimizing loop structure.",
+      "location": {
+        "line": 20,
+        "code": "for (uint i = 0; i < recipients.length; i++) {"
+      },
+      "recommendation": "Cache storage reads in memory variables or restructure the loop."
+    },
+    {
+      "tool": "gas-analyzer",
+      "contract": "SimpleToken",
+      "category": "gas",
+      "severity": "Low",
+      "title": "Multiple Storage Reads",
+      "description": "Multiple storage reads detected. Consider caching in memory variable.",
+      "location": {
+        "line": 21,
+        "code": "balances[recipients[i]] += amounts[i];  // Gas: storage operation in loop"
+      },
+      "recommendation": "Store frequently accessed storage values in memory variables."
+    }
+  ],
+  "summary": {
+    "total_findings": 29,
+    "severity_breakdown": {
+      "Low": 26,
+      "Info": 1,
+      "High": 1,
+      "Medium": 1
+    },
+    "category_breakdown": {
+      "maintainability": 23,
+      "gas": 3,
+      "security": 3
+    },
+    "tool_breakdown": {
+      "solhint": 24,
+      "slither": 2,
+      "gas-analyzer": 3
+    }
+  },
+  "metadata": {},
+  "errors": [],
+  "report_generated_at": "2025-09-03T06:25:23.334250"
+}
