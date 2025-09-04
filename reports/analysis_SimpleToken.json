@@ -1,7 +1,7 @@
 {
-  "analysis_id": "7a059a0f-6846-43ca-9169-39129bfed036",
-  "contract_id": null,
-  "timestamp": "2025-09-03T06:23:43.138471",
+  "analysis_id": "a106145b-76f5-4ab4-94de-00b305c59c7b",
+  "timestamp": "2025-09-04T12:01:06.469986",
+  "input_file": "/analysis/contracts/SimpleToken.sol",
   "compilation": {
     "success": true,
     "framework": "hardhat",
@@ -468,7 +468,7 @@
         "start": 181,
         "length": 23,
         "filename_relative": "flattened/SimpleToken.sol",
-        "filename_absolute": "/tmp/analysis-7a059a0f-6846-43ca-9169-39129bfed036-kv8b0omc/flattened/SimpleToken.sol",
+        "filename_absolute": "/tmp/analysis-a106145b-76f5-4ab4-94de-00b305c59c7b-q5nqoe17/flattened/SimpleToken.sol",
         "filename_short": "flattened/SimpleToken.sol",
         "is_dependency": false,
         "lines": [
@@ -490,7 +490,7 @@
         "start": 282,
         "length": 26,
         "filename_relative": "flattened/SimpleToken.sol",
-        "filename_absolute": "/tmp/analysis-7a059a0f-6846-43ca-9169-39129bfed036-kv8b0omc/flattened/SimpleToken.sol",
+        "filename_absolute": "/tmp/analysis-a106145b-76f5-4ab4-94de-00b305c59c7b-q5nqoe17/flattened/SimpleToken.sol",
         "filename_short": "flattened/SimpleToken.sol",
         "is_dependency": false,
         "lines": [
@@ -500,6 +500,20 @@
         "ending_column": 31
       },
       "recommendation": null
+    },
+    {
+      "tool": "mythril",
+      "contract": "SimpleToken",
+      "category": "security",
+      "severity": "High",
+      "title": "Integer Arithmetic Bugs",
+      "description": "The arithmetic operator can underflow.\nIt is possible to cause an integer overflow or underflow in the arithmetic operation. ",
+      "location": {
+        "file": "/tmp/analysis-a106145b-76f5-4ab4-94de-00b305c59c7b-q5nqoe17/contracts/SimpleToken.sol",
+        "line": null,
+        "function": "batchTransfer(address[],uint256[])"
+      },
+      "recommendation": "Review SWC-101 vulnerability: Integer Arithmetic Bugs"
     },
     {
       "tool": "gas-analyzer",
@@ -542,25 +556,25 @@
     }
   ],
   "summary": {
-    "total_findings": 29,
+    "total_findings": 30,
     "severity_breakdown": {
       "Low": 26,
       "Info": 1,
-      "High": 1,
+      "High": 2,
       "Medium": 1
     },
     "category_breakdown": {
       "maintainability": 23,
       "gas": 3,
-      "security": 3
+      "security": 4
     },
     "tool_breakdown": {
       "solhint": 24,
       "slither": 2,
+      "mythril": 1,
       "gas-analyzer": 3
     }
   },
-  "metadata": {},
   "errors": [],
-  "report_generated_at": "2025-09-03T06:25:23.334250"
+  "report_generated_at": "2025-09-04T12:02:27.250328"
 }

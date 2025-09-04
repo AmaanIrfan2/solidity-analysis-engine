@@ -370,19 +370,16 @@ module.exports = {
             return []
     
     async def run_mythril(self, contract_files: List[Path]) -> List[AnalysisFinding]:
-        """Run Mythril analysis with proper error handling"""
+        """Run Mythril analysis with proper error handling for multi-contract files"""
         try:
             logger.info("Starting Mythril analysis pipeline...")
             findings = []
             
             for contract_file in contract_files:
                 try:
-                    # Try multiple Mythril analysis approaches
-                    output = await self.run_mythril_on_contract(contract_file)
-                    
-                    if output and output.strip():
-                        findings_from_output = self.parse_mythril_output(output, contract_file)
-                        findings.extend(findings_from_output)
+                    # Analyze all contracts in the file using their compiled artifacts
+                    contract_findings = await self.run_mythril_on_all_contracts(contract_file)
+                    findings.extend(contract_findings)
                 
                 except Exception as e:
                     logger.warning(f"Mythril analysis failed for {contract_file.name}: {e}")
@@ -555,6 +552,109 @@ module.exports = {
         mapping = {'High': 'High', 'Medium': 'Medium', 'Low': 'Low', 'high': 'High', 'medium': 'Medium', 'low': 'Low'}
         return mapping.get(severity, 'Medium')
     
+    
+    async def run_mythril_on_all_contracts(self, contract_file: Path) -> List[AnalysisFinding]:
+        """Run Mythril on all contracts compiled from a single Solidity file"""
+        findings = []
+        artifacts_dir = self.workspace_dir / 'artifacts' / 'contracts'
+        contract_subdir = artifacts_dir / f"{contract_file.name}"
+        
+        logger.info(f"Looking for all contracts in {contract_file.name}")
+        
+        if contract_subdir.exists():
+            # Get all non-debug JSON artifacts for this contract file
+            artifact_files = [f for f in contract_subdir.glob('*.json') if '.dbg.json' not in f.name]
+            logger.info(f"Found {len(artifact_files)} contract artifacts: {[f.name for f in artifact_files]}")
+            
+            for artifact_file in artifact_files:
+                contract_name = artifact_file.stem
+                logger.info(f"Analyzing contract: {contract_name}")
+                
+                try:
+                    output = await self.analyze_contract_artifact(artifact_file, contract_file)
+                    if output and output.strip():
+                        contract_findings = self.parse_mythril_output(output, contract_file, contract_name)
+                        findings.extend(contract_findings)
+                        logger.info(f"Found {len(contract_findings)} findings for {contract_name}")
+                    else:
+                        logger.info(f"No issues found for {contract_name}")
+                        
+                except Exception as e:
+                    logger.warning(f"Failed to analyze contract {contract_name}: {e}")
+        else:
+            logger.warning(f"No artifacts found for {contract_file.name}")
+            # Fallback to original single contract analysis
+            output = await self.run_mythril_on_contract(contract_file)
+            if output and output.strip():
+                findings_from_output = self.parse_mythril_output(output, contract_file)
+                findings.extend(findings_from_output)
+        
+        return findings
+    
+    async def analyze_contract_artifact(self, artifact_file: Path, original_file: Path) -> str:
+        """Analyze a specific contract artifact with Mythril"""
+        try:
+            # Read the bytecode from artifact
+            with open(artifact_file, 'r') as f:
+                artifact_data = json.load(f)
+            
+            bytecode = artifact_data.get('bytecode')
+            if not bytecode or bytecode == '0x' or len(bytecode) <= 10:
+                logger.info(f"No valid bytecode in artifact {artifact_file.name}")
+                return ""
+            
+            # Clean bytecode
+            clean_bytecode = bytecode[2:] if bytecode.startswith('0x') else bytecode
+            
+            # Also try deployed bytecode if available
+            deployed_bytecode_obj = artifact_data.get('deployedBytecode')
+            if isinstance(deployed_bytecode_obj, dict):
+                deployed_bytecode = deployed_bytecode_obj.get('object', '')
+            elif isinstance(deployed_bytecode_obj, str):
+                deployed_bytecode = deployed_bytecode_obj
+            else:
+                deployed_bytecode = ""
+                
+            if deployed_bytecode and len(deployed_bytecode) > len(bytecode):
+                logger.info(f"Using deployed bytecode for {artifact_file.name}")
+                clean_bytecode = deployed_bytecode[2:] if deployed_bytecode.startswith('0x') else deployed_bytecode
+            
+            logger.info(f"Analyzing {artifact_file.name} with bytecode length: {len(clean_bytecode)}")
+            
+            # Run Mythril on bytecode
+            bytecode_commands = [
+                ['myth', 'analyze', '--code', clean_bytecode, '--execution-timeout', '60', '-o', 'json'],
+                ['myth', 'analyze', '--code', clean_bytecode, '--execution-timeout', '60'],
+                ['myth', 'a', '--code', clean_bytecode, '--execution-timeout', '30']
+            ]
+            
+            for i, cmd in enumerate(bytecode_commands):
+                try:
+                    logger.info(f"Mythril attempt {i+1} for {artifact_file.name}: {' '.join(cmd[:4])}...")
+                    output = await self.run_command_with_results(cmd, timeout=90)
+                    
+                    if output and output.strip():
+                        output_preview = output[:200].replace('\n', ' ')
+                        logger.info(f"Mythril output for {artifact_file.name}: {output_preview}...")
+                        
+                        if "No issues were detected" in output or "The analysis was completed successfully" in output:
+                            logger.info(f"Mythril completed analysis of {artifact_file.name} - no issues found")
+                            return "No security issues found"
+                        elif "issues" in output or any(indicator in output for indicator in ["SWC ID:", "====", "Exception", "External"]):
+                            logger.info(f"Mythril found issues in {artifact_file.name}")
+                            return output
+                        else:
+                            return output
+                    
+                except Exception as e:
+                    logger.warning(f"Mythril command failed for {artifact_file.name}: {str(e)[:100]}")
+                    continue
+            
+            return ""
+            
+        except Exception as e:
+            logger.error(f"Error analyzing artifact {artifact_file}: {e}")
+            return ""
     
     async def run_mythril_on_contract(self, contract_file: Path) -> str:
         """Run Mythril on a single contract using bytecode analysis when solc fails"""
@@ -787,7 +887,7 @@ module.exports = {
     
     
     
-    def parse_mythril_output(self, output: str, contract_file: Path) -> List[AnalysisFinding]:
+    def parse_mythril_output(self, output: str, contract_file: Path, contract_name: str = None) -> List[AnalysisFinding]:
         """Parse Mythril output with improved error handling for multiple formats"""
         findings = []
         try:
@@ -827,7 +927,7 @@ module.exports = {
                 
                 findings.append(AnalysisFinding(
                     tool='mythril',
-                    contract=contract_file.stem,
+                    contract=contract_name or contract_file.stem,
                     category='security',
                     severity=self.map_mythril_severity(issue.get('severity', 'Medium')),
                     title=title,
@@ -850,11 +950,17 @@ module.exports = {
     
     async def generate_report(self, result: AnalysisResult, output_dir: Path) -> Path:
         """Generate JSON report"""
-        FileHandler.ensure_directory(output_dir)
+        # Ensure output directory exists and is writable
+        output_dir = Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
         
         timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
         report_filename = f"analysis_{self.analysis_id}_{timestamp}.json"
         report_path = output_dir / report_filename
+        
+        # Log the absolute paths for debugging
+        logger.info(f"Output directory: {output_dir.absolute()}")
+        logger.info(f"Report will be written to: {report_path.absolute()}")
         
         await ReportGenerator.generate_json_report(result, report_path)
         logger.info(f"Report generated: {report_path}")
